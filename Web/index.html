@@ -1,87 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>A* Algorithm</title>
-  <style>
-    .container {
-      display: flex;
-      flex-wrap: wrap;
-    }
-    
-    .square {
-      width: 20px;
-      height: 20px;
-      border: 1px solid black;
-    }
-    
-    .start, .end {
-      background-color: green;
-    }
-    
-    .wall {
-      background-color: black;
-    }
-    
-    .path {
-      background-color: lightblue;
-    }
-  </style>
+  <title>Web tasks</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>A* Algorithm</h1>
-  
+  <h1>A* Algorithm</h1> // Mina
   <button onclick="clearCanvas()">Clear Canvas</button>
   <button onclick="findPath()">Find Shortest Path</button>
   <button onclick="resetCanvas()">Reset Canvas</button>
   
   <div class="container" id="canvas"></div>
   
-  <script>
-    const canvas = document.getElementById('canvas');
-    const gridSize = 20;
-    const grid = [];
-    let startNode = null;
-    let endNode = null;
-    
-    function createGrid() {
-      for (let i = 0; i < gridSize; i++) {
-        const row = [];
-        for (let j = 0; j < gridSize; j++) {
-          const cell = document.createElement('div');
-          cell.className = 'square';
-          cell.addEventListener('click', () => toggleWall(cell));
-          row.push(cell);
-          canvas.appendChild(cell);
-        }
-        grid.push(row);
-      }
-    }
-    
-    function toggleWall(cell) {
-      if (cell === startNode || cell === endNode) return;
-      cell.classList.toggle('wall');
-    }
-    
-    function clearCanvas() {
-      grid.forEach(row => {
-        row.forEach(cell => {
-          cell.className = 'square';
-        });
-      });
-      startNode = null;
-      endNode = null;
-    }
-    
-    function findPath() {
-      // Implement A* algorithm to find the shortest path
-    }
-    
-    function resetCanvas() {
-      clearCanvas();
-      createGrid();
-    }
-    
-    createGrid();
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
