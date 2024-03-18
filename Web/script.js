@@ -37,9 +37,9 @@ const canvas = document.getElementById('canvas');
       // Implement A* algorithm to find the shortest path (to be done)
     }
     
-    function resetCanvas() {
-      clearCanvas();
-      createGrid();
-    }
+    // function resetCanvas() {
+    //   clearCanvas();  Not needed
+    //   createGrid();
+    // }
     
     createGrid();
