@@ -34,7 +34,7 @@ const canvas = document.getElementById('canvas');
     }
     
     function findPath() {
-      // Implement A* algorithm to find the shortest path
+      // Implement A* algorithm to find the shortest path (to be done)
     }
     
     function resetCanvas() {
