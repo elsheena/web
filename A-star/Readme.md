@@ -1,3 +1,3 @@
 # Known issues: 
-Obstacles can block destination
+Obstacles can block destination \n
 Need to work on size of canvas
