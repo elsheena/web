@@ -1,19 +1,20 @@
 // Declaring needed variables
 let started
+var e = document.getElementById("selectGridSize");
 let algo = "A* Search"
 let startButton
 let screen
 let graph
-let rows
-let cols
+let rows = e.value
+let cols = e.value
 let resolution
 let openSet
 let closedSet
 let source;
 let destination;
 let shortestPath
-let w;
-let h;
+// let w;
+// let h;
 let sourceSelected
 let destinationSelected
 // sourceColor = color(87, 50, 168)
@@ -32,8 +33,8 @@ function resetCanvas() {
 
     rows = floor(height / resolution);
     cols = floor(width / resolution);
-    w = width / cols;
-    h = height / rows;
+    // w = width / cols;
+    // h = height / rows;
     graph = twoDArray(rows, cols);
     startButton = document.getElementById("startButton")
     startButton.disabled = false
@@ -104,13 +105,13 @@ function Node(i, j) {
     this.y = this.j * resolution;
     this.r = resolution - 1;
 
-    // needed for A* and Greedy
+    // needed for A*
     this.f = 0;
     this.g = 0;
     this.h = 0;
 
-    // needed for Dijkstra
-    this.d = Infinity
+    // // needed for Dijkstra
+    // this.d = Infinity
 
     this.obstacle = false;
     this.parent = undefined;
@@ -185,8 +186,8 @@ function windowResized() {
 }
 
 function centerCanvas() {
-    var x = ((windowWidth) - width) / 2;
-    var y = ((windowHeight - (windowHeight * 0.20)) - height) / 2;
+    var x = e.value;
+    var y = e.value;
     screen.position(x, y);
 }
 
@@ -197,17 +198,6 @@ function setup() {
     centerCanvas();
     // startButton.parent("sketch01");
     resetCanvas()
-}
-
-function dijkstraInitialize(){
-    source.d = 0
-
-    // Creating a openSet initializing with all the node of the graph
-    graph.forEach( row => {
-        row.forEach( node => {
-            openSet.push(node)
-        })
-    })
 }
 
 function initialize() {
@@ -315,20 +305,7 @@ function draw() {
 
 
 function start() {
-    if (algo === null) {
-        let startButton = document.getElementById('startButton')
-        startButton.innerHTML = `Pick An Algorithm!`
-        return
-    }
-   else if(algo === "Dijkstra"){
-        dijkstraInitialize()
-    }
-    else if (algo != "Breadth First Search" && algo != "Depth First Search") {
-        initialize()
-    }
-    else {
-        BFSorDFS_initialize()
-    }
+    initialize()
 
     started = true;
     startButton.disabled = true
