@@ -221,46 +221,6 @@ function BFSorDFS_initialize() {
 }
 function draw() {
     if (started) {
-        // Algorithm for Dijkstra
-        if (algo == "Dijkstra") {
-            if (openSet.length > 0) {
-                current = lowestDscoreNode(); //It'll return the node least d value
-                
-                // Means there's no possible path with finite distance from source to destination
-                if(current.d === Infinity){
-                    console.log('no solution');
-                    noLoop();
-                    return;
-                }
-            
-                if (current === destination) {
-                    noLoop();
-                    console.log("We're Done!")
-                }
-
-                //removing the "current" vertex from openSet and adding it to closedSet
-                var removeIndex = openSet.map(function (item) { return item; }).indexOf(current);
-                openSet.splice(removeIndex, 1);
-                closedSet.push(current)
-                for (neighbor of current.neighbors) {
-                    // Checking to see if the node is valid
-                    if (!neighbor.obstacle) {
-                        // let's calculate dist(current)+cost_between(current,neighbor)
-                        dScore = current.d + 1
-                        if(dScore < neighbor.d){
-                            neighbor.d = dScore
-                            neighbor.parent = current
-                        }
-                        
-                    }
-                }
-
-            }
-
-        }
-
-        // Algorithm for A* Search
-        if (algo == "A* Search") {
             if (openSet.length > 0) {
                 current = lowestFscoreNode();
                 if (current == destination) {
@@ -303,97 +263,6 @@ function draw() {
                 noLoop();
                 return;
             }
-        }
-
-        // Algorithm for Greedy Best First Search Search
-        if (algo == "Greedy Best First Search") {
-            if (openSet.length > 0) {
-                current = lowestHeuristicNode();
-                if (current == destination) {
-                    noLoop();
-                    console.log("We're Done!")
-                }
-
-                //removing the "current" vertex from openSet and adding it to closedSet
-                var removeIndex = openSet.map(function (item) { return item; }).indexOf(current);
-                openSet.splice(removeIndex, 1);
-                closedSet.push(current);
-
-                for (neighbor of current.neighbors) {
-                    // Checking to see if the node is valid
-                    if (!closedSet.includes(neighbor) && !openSet.includes(neighbor) && !neighbor.obstacle) {
-                        neighbor.h = heuristic(neighbor, destination);
-                        neighbor.parent = current;
-                        openSet.push(neighbor)
-                    }
-                }
-
-            }
-            else {
-                console.log('no solution');
-                noLoop();
-                return;
-            }
-        }
-
-        // Algorithm for Breadth First Search
-        if (algo == "Breadth First Search") {
-            if (openSet.length > 0) {
-                current = openSet[0]
-                if (current == destination) {
-                    noLoop();
-                    console.log("We're Done!")
-                }
-
-                //removing the "current" vertex from openSet and adding it to closedSet
-                var removeIndex = openSet.map(function (item) { return item; }).indexOf(current);
-                openSet.splice(removeIndex, 1);
-                console.log(openSet)
-                for (neighbor of current.neighbors) {
-                    if (!closedSet.includes(neighbor) && !neighbor.obstacle) {
-                        openSet.push(neighbor);
-                        closedSet.push(neighbor);
-                        neighbor.parent = current
-                    }
-                }
-
-            }
-            else {
-                console.log('no solution');
-                noLoop();
-                return;
-            }
-        }
-
-        // Algorithm for Depth First Search
-        if (algo == "Depth First Search") {
-            if (openSet.length > 0) {
-                console.log(openSet)
-                current = openSet[openSet.length - 1]
-                if (current == destination) {
-                    noLoop();
-                    console.log("We're Done!")
-                }
-
-                //removing the "current" vertex from openSet and adding it to closedSet
-                var removeIndex = openSet.map(function (item) { return item; }).indexOf(current);
-                openSet.splice(removeIndex, 1);
-                console.log(openSet)
-                for (neighbor of current.neighbors) {
-                    if (!closedSet.includes(neighbor) && !neighbor.obstacle) {
-                        openSet.push(neighbor);
-                        closedSet.push(neighbor);
-                        neighbor.parent = current
-                    }
-                }
-
-            }
-            else {
-                console.log('no solution');
-                noLoop();
-                return;
-            }
-        }
 
         background(255);
 
@@ -443,26 +312,7 @@ function draw() {
 
 }
 
-// function dropdown(event) {
-//     let startButton = document.getElementById('startButton')
-//     startButton.innerHTML = `Start ${algo}`
-//     let message = document.getElementById('message')
-//     if(algo === "A* Search"){
-//         message.innerHTML = `Insight: A* Search <span style = "font-weight: bold;">Gurantees</span> Shortest Path`
-//     }
-//     else if(algo === "Dijkstra"){
-//         message.innerHTML = `Insight: Dijkstra's Algorithm Or A Variant Of It Is Known As UCS <span style = "font-weight: bold;">Gurantees</span> Shortest Path`
-//     }
-//     else if(algo === "Breadth First Search"){
-//         message.innerHTML = `Insight: Breadth First Search (BFS) <span style = "font-weight: bold;">Gurantees</span> Shortest Path In An <span style = "font-weight: bold;">Unweighted Graph</span> And A Feasible Choice <span style = "font-weight: bold;">If The Destination Is Closer To The Source</span>`
-//     }
-//     else if(algo === "Depth First Search"){
-//         message.innerHTML = `Insight: Depth First Search (DFS) <span style = "font-weight: bold;">Does Not Gurantee</span> Shortest Path Though Is A Feasible Choice For Memory <span style = "font-weight: bold;">If The Destination Is Far Away From The Source</span>`
-//     }
-//     else{
-//         message.innerHTML = `Insight: Greedy Best-First Search <span style = "font-weight: bold;">Does Not Gurantee</span> Shortest Path As It Takes Decision Solely Based On <span style = "font-weight: bold;">Heuristics</span>`
-//     }
-// }
+
 
 function start() {
     if (algo === null) {
