@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traveling Salesman Problem</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            margin-right: 10px;
+        }
+
+        input[type="number"] {
+            width: 70px;
+            padding: 5px;
+            margin-right: 10px;
+        }
+
+        button {
+            padding: 8px 16px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #map {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+        }
+
+        #map div {
+            display: inline-block;
+            background-color: #007bff;
+            color: #fff;
+            padding: 5px 10px;
+            margin: 5px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div>
+            <label for="x-coordinate">X-coordinate:</label>
+            <input type="number" id="x-coordinate">
+            <label for="y-coordinate">Y-coordinate:</label>
+            <input type="number" id="y-coordinate">
+            <button id="add-city-btn">Add City</button>
+        </div>
+        <div id="map"></div>
+        <button id="run-btn">Run Genetic Algorithm</button>
+    </div>
+    <script>
+        const cities = [];
+        let visitedCities = [];
+
+        function addCity() {
+            const x = parseInt(document.getElementById('x-coordinate').value);
+            const y = parseInt(document.getElementById('y-coordinate').value);
+            if (!isNaN(x) && !isNaN(y)) {
+                cities.push({ x, y });
+                displayMap();
+            }
+        }
+
+        function generateRandomTour() {
+            const tour = [...Array(cities.length).keys()];
+            for (let i = tour.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [tour[i], tour[j]] = [tour[j], tour[i]];
+            }
+            return tour;
+        }
+
+        function distance(city1, city2) {
+            return Math.sqrt(Math.pow(city2.x - city1.x, 2) + Math.pow(city2.y - city1.y, 2));
+        }
+
+        function tourDistance(tour) {
+            let totalDistance = 0;
+            for (let i = 0; i < tour.length - 1; i++) {
+                const city1 = cities[tour[i]];
+                const city2 = cities[tour[i + 1]];
+                totalDistance += distance(city1, city2);
+            }
+            const firstCity = cities[tour[0]];
+            const lastCity = cities[tour[tour.length - 1]];
+            totalDistance += distance(lastCity, firstCity);
+            return totalDistance;
+        }
+
+        function runGeneticAlgorithm() {
+            const populationSize = 50;
+            const numGenerations = 1000;
+            const mutationRate = 0.2;
+
+            let bestTour = [];
+            let bestDistance = Infinity;
+
+            for (let generation = 0; generation < numGenerations; generation++) {
+                const tour = generateRandomTour();
+                const tourDist = tourDistance(tour);
+                if (tourDist < bestDistance) {
+                    bestTour = tour.slice();
+                    bestDistance = tourDist;
+                }
+            }
+
+            visitedCities = bestTour;
+            displayMap();
+            console.log("Best Tour:", bestTour);
+            console.log("Best Distance:", bestDistance);
+        }
+
+        function displayMap() {
+            const map = document.getElementById('map');
+            map.innerHTML = '';
+            cities.forEach((city, index) => {
+                const cityDiv = document.createElement('div');
+                cityDiv.textContent = `(${city.x}, ${city.y})`;
+                map.appendChild(cityDiv);
+            });
+        }
+
+        const addCityBtn = document.getElementById('add-city-btn');
+        addCityBtn.addEventListener('click', addCity);
+
+        const runBtn = document.getElementById('run-btn');
+        runBtn.addEventListener('click', runGeneticAlgorithm);
+    </script>
+</body>
+</html>
