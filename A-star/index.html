@@ -34,27 +34,37 @@
         <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto nav-fill w-100 align-items-center">
             <li class="nav-item active">
-              <a class="nav-link" href="#" onclick="throwObstacles()">Throw Obstacles<span
+              <a class="btn btn-dark my-2 my-sm-0" href="#" onclick="throwObstacles()">Throw Obstacles<span
                   class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <button class="btn btn-dark my-2 my-sm-0" id="startButton" type="submit">Start</button>
             </li>
             <li class="nav-item active">
               <a class="nav-link" href="#" onclick="resetCanvas()">Clear<span class="sr-only">(current)</span></a>
             </li>
+            <li class="nav-item">
+              <button class="btn btn-dark my-2 my-sm-0" id="startButton" type="submit">Start</button>
+            </li>
+            <li class="nav-item dropdown active">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                Size
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#" onclick="dropdown(event)" value="5">5x5</a>
+                <a class="dropdown-item" href="#" onclick="dropdown(event)" value="10">10x10</a>
+                <a class="dropdown-item" href="#" onclick="dropdown(event)" value="15">15x15</a>
+                <a class="dropdown-item" href="#" onclick="dropdown(event)" value="20">20x20</a>
+                <a class="dropdown-item" href="#" onclick="dropdown(event)" value="25">25x25</a>
+                <a class="dropdown-item" href="#" onclick="dropdown(event)" value="30">30x30</a>
+                <a class="dropdown-item" href="#" onclick="dropdown(event)" value="35">35x35</a>
+                <a class="dropdown-item" href="#" onclick="dropdown(event)" value="40">40x40</a>
+                <a class="dropdown-item" href="#" onclick="dropdown(event)" value="45">45x45</a>
+                <a class="dropdown-item" href="#" onclick="dropdown(event)" value="50">50x50</a>
+              </div>
+            </li>
             <li>
-              <select class="btn btn-dark my-2 my-sm-0" id="selectGridSize" name="selectGridSize">
-                <option value="5">5x5</option>
-                <option value="10">10x10</option>
-                <option value="15">15x15</option>
-                <option value="20" selected="selected">20x20</option>
-                <option value="25">25x25</option>
-                <option value="30">30x30</option>
-                <option value="35">35x35</option>
-                <option value="40">40x40</option>
-                <option value="45">45x45</option>
-                <option value="50">50x50</option>
+              <select class="btn btn-dark my-2 my-sm-0" id="heuristicchoice" name="heuristicchoice">
+                <option index = "1" selected="selected">Euclidean distance</option>
+                <option index = "2">Manhattan distance</option>
               </select>
             </li>
           </ul>
