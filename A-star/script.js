@@ -308,37 +308,7 @@ function dropdown(event) {
     let startButton = document.getElementById('startButton')
     startButton.innerHTML = `Start ${algo}`
     message.innerHTML = `Insight: A* Search <span style = "font-weight: bold;">Gurantees</span> Shortest Path`
-    e = event.target.text;
-    if(e === "5x5"){
-        size = 150;
-    }
-    else if(e === "10x10"){
-        size = 75;
-    }
-    else if(e === "15x15"){
-        size = 50;
-    }
-    else if(e === "20x20"){
-        size = 37;
-    }
-    else if(e === "25x25"){
-        size = 31;
-    }
-    else if(e === "30x30"){
-        size = 26;
-    }
-    else if(e === "35x35"){
-        size = 22;
-    }
-    else if(e === "40x40"){
-        size = 19;
-    }
-    else if(e === "45x45"){
-        size = 17;
-    }
-    else {
-        size = 15.5;
-    }
+    size = event.target.selectedOptions[0].getAttribute("value")
     setup()
     centerCanvas();
     // startButton.parent("sketch01");
