@@ -1,7 +1,9 @@
 // Declaring needed variables
 let started
-var e = document.getElementById("selectGridSize");
+let e
+let size = 31
 let algo = "A* Search"
+let message = document.getElementById('message')
 let startButton
 let screen
 let graph
@@ -13,26 +15,34 @@ let closedSet
 let source;
 let destination;
 let shortestPath
-let w;
+let w = 776;
 let h;
 let sourceSelected
 let destinationSelected
+let heuristicChoose = document.getElementById('heuristicchoice');
+let choice = "1"
 // sourceColor = color(87, 50, 168)
 // destColor = color(140, 68, 20)
+
+heuristicChoose.onchange = function(event) {
+    choice = event.target.selectedOptions[0].getAttribute("index");
+    console.log(choice)
+    if(started == true) resetCanvas()
+    }
 
 function resetCanvas() {
     console.log(new Node(0, 0))
     // Initializing variables
     started = false
-    resolution = 30
+    // resolution = 30
     openSet = []
     closedSet = []
     shortestPath = []
     sourceSelected = false
     destinationSelected = false
 
-    rows = floor(height / resolution);
-    cols = floor(width / resolution);
+    rows = floor(height / size);
+    cols = floor(width / size);
     w = width / cols;
     h = height / rows;
     graph = twoDArray(rows, cols);
@@ -56,7 +66,7 @@ function resetCanvas() {
         }
     }
     // Initializing random source and destination if not chosen
-    if (source === undefined || destination === undefined) {
+    //if (source === undefined || destination === undefined) {
 
         x = Math.floor(Math.random() * cols / 2)
         y = Math.floor(Math.random() * rows)
@@ -67,20 +77,20 @@ function resetCanvas() {
         y = Math.floor(Math.random() * rows)
 
         destination = graph[x][y];
-    }
+    //}
     // otherwise Reinitializing old source & destination from graph's new objects
-    else {
-        graph.forEach(row => {
-            row.forEach((node) => {
-                if (node.i === source.i && node.j === source.j) {
-                    source = node
-                }
-                if (node.i === destination.i && node.j === destination.j) {
-                    destination = node
-                }
-            })
-        })
-    }
+    // else {
+    //     graph.forEach(row => {
+    //         row.forEach((node) => {
+    //             if (node.i === source.i && node.j === source.j) {
+    //                 source = node
+    //             }
+    //             if (node.i === destination.i && node.j === destination.j) {
+    //                 destination = node
+    //             }
+    //         })
+    //     })
+    // }
     //making sure source and destination aren't obstacls;
     source.obstacle = false;
     destination.obstacle = false;
@@ -101,9 +111,9 @@ function resetCanvas() {
 function Node(i, j) {
     this.i = i;
     this.j = j;
-    this.x = this.i * resolution;
-    this.y = this.j * resolution;
-    this.r = resolution - 1;
+    this.x = this.i * size;
+    this.y = this.j * size;
+    this.r = size - 1;
 
     // needed for A*
     this.f = 0;
@@ -143,11 +153,13 @@ function Node(i, j) {
         if (i < cols - 1) this.neighbors.push(graph[i + 1][j]);
         if (j > 0) this.neighbors.push(graph[i][j - 1]);
         if (j < rows - 1) this.neighbors.push(graph[i][j + 1]);
-        //Diagonal Neighbors
-        // if (i > 0 && j > 0) this.neighbors.push(graph[i - 1][j - 1]);
-        // if (i < cols - 1 && j < rows - 1) this.neighbors.push(graph[i + 1][j + 1]);
-        // if (i > 0 && j < rows - 1) this.neighbors.push(graph[i - 1][j + 1]);
-        // if (i < cols - 1 && j > 0) this.neighbors.push(graph[i + 1][j - 1]);
+
+        if (choice == 1) {// Diagonal Neighbors
+            if (i > 0 && j > 0) this.neighbors.push(graph[i - 1][j - 1]);
+            if (i < cols - 1 && j < rows - 1) this.neighbors.push(graph[i + 1][j + 1]);
+            if (i > 0 && j < rows - 1) this.neighbors.push(graph[i - 1][j + 1]);
+            if (i < cols - 1 && j > 0) this.neighbors.push(graph[i + 1][j - 1]);
+        }    
     }
 
     this.clicked = () => {
@@ -192,8 +204,9 @@ function centerCanvas() {
 }
 
 function setup() {
+    message.innerHTML = `To move start and end points, drag them with the help of your mouse.`
     // making the canvas
-    screen = createCanvas(windowWidth - (windowHeight * 0.05), windowHeight - (windowHeight * 0.20));
+    screen = createCanvas(776, 776);
     screen.parent("sketch01");
     centerCanvas();
     // startButton.parent("sketch01");
@@ -281,7 +294,7 @@ function draw() {
         strokeWeight(4);
         beginShape();
         for (path of shortestPath) {
-            vertex(path.i * resolution + resolution / 2, path.j * resolution + resolution / 2);
+            vertex(path.i * size + size / 2, path.j * size + size / 2);
         }
         endShape();
         source.show(color(87, 50, 168));
@@ -294,13 +307,46 @@ function dropdown(event) {
     algo = "A* Search"
     let startButton = document.getElementById('startButton')
     startButton.innerHTML = `Start ${algo}`
-    let message = document.getElementById('message')
     message.innerHTML = `Insight: A* Search <span style = "font-weight: bold;">Gurantees</span> Shortest Path`
+    e = event.target.text;
+    if(e === "5x5"){
+        size = 150;
+    }
+    else if(e === "10x10"){
+        size = 75;
+    }
+    else if(e === "15x15"){
+        size = 50;
+    }
+    else if(e === "20x20"){
+        size = 37;
+    }
+    else if(e === "25x25"){
+        size = 31;
+    }
+    else if(e === "30x30"){
+        size = 26;
+    }
+    else if(e === "35x35"){
+        size = 22;
+    }
+    else if(e === "40x40"){
+        size = 19;
+    }
+    else if(e === "45x45"){
+        size = 17;
+    }
+    else {
+        size = 15.5;
+    }
+    setup()
+    centerCanvas();
+    // startButton.parent("sketch01");
+    resetCanvas()
 }
 
 function start() {
     initialize()
-
     started = true;
     startButton.disabled = true
     loop();
@@ -442,16 +488,18 @@ function mouseReleased() {
 }
 
 function heuristic(node, goal) {
-    //euclidean distance
-    // dx = abs(node.x - goal.x);
-    // dy = abs(node.y - goal.y);
-    // return 1 * sqrt(dx * dx + dy * dy);
-
-    //Manhattan distance
-    dx = abs(node.x - goal.x);
-    dy = abs(node.y - goal.y);
-    return 1 * (dx + dy);
-
+    if (choice == "1"){
+        //euclidean distance
+        dx = abs(node.x - goal.x);
+        dy = abs(node.y - goal.y);
+        return 1 * sqrt(dx * dx + dy * dy);
+    }
+    else {
+        // //Manhattan distance
+        dx = abs(node.x - goal.x);
+        dy = abs(node.y - goal.y);
+        return 1 * (dx + dy);
+    }
 
     // let d = dist(a.i, a.j, b.i, b.j);
     // let d = abs(a.i - b.i) + abs(a.j - b.j);
