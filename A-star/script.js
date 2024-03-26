@@ -5,16 +5,16 @@ let algo = "A* Search"
 let startButton
 let screen
 let graph
-let rows = e.value
-let cols = e.value
+let rows
+let cols
 let resolution
 let openSet
 let closedSet
 let source;
 let destination;
 let shortestPath
-// let w;
-// let h;
+let w;
+let h;
 let sourceSelected
 let destinationSelected
 // sourceColor = color(87, 50, 168)
@@ -33,8 +33,8 @@ function resetCanvas() {
 
     rows = floor(height / resolution);
     cols = floor(width / resolution);
-    // w = width / cols;
-    // h = height / rows;
+    w = width / cols;
+    h = height / rows;
     graph = twoDArray(rows, cols);
     startButton = document.getElementById("startButton")
     startButton.disabled = false
@@ -165,10 +165,10 @@ function Node(i, j) {
             this.obstacle = true;
             this.show(color(128, 128, 128));
         }
-        // else{
-        //     this.obstacle = false;
-        //     this.show(color(255,255,255));
-        // }
+        else{
+            this.obstacle = false;
+            this.show(color(255,255,255));
+        }
 
     }
 }
@@ -186,8 +186,8 @@ function windowResized() {
 }
 
 function centerCanvas() {
-    var x = e.value;
-    var y = e.value;
+    var x = ((windowWidth) - width) / 2;
+    var y = ((windowHeight - (windowHeight * 0.20)) - height) / 2;
     screen.position(x, y);
 }
 
@@ -204,11 +204,6 @@ function initialize() {
     openSet.push(source);
 }
 
-function BFSorDFS_initialize() {
-    openSet.push(source);
-    closedSet.push(source)
-
-}
 function draw() {
     if (started) {
             if (openSet.length > 0) {
@@ -265,14 +260,7 @@ function draw() {
 
         //Coloring the visited, unvisited vertices and the shortest path
         for (node of openSet) {
-            if(algo === "Dijkstra"){
-                if(node.d != Infinity){
-                    node.show(color(45, 196, 129));    
-                }
-            }
-            else{
                 node.show(color(45, 196, 129));
-            }
         }
         for (node of closedSet) {
             node.show(color(255, 0, 0, 50));
@@ -302,7 +290,13 @@ function draw() {
 
 }
 
-
+function dropdown(event) {
+    algo = "A* Search"
+    let startButton = document.getElementById('startButton')
+    startButton.innerHTML = `Start ${algo}`
+    let message = document.getElementById('message')
+    message.innerHTML = `Insight: A* Search <span style = "font-weight: bold;">Gurantees</span> Shortest Path`
+}
 
 function start() {
     initialize()
