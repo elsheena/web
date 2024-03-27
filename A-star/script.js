@@ -1,5 +1,6 @@
 // Declaring needed variables
 let started
+let weights
 let e
 let size = 31
 let algo = "A* Search"
@@ -325,7 +326,8 @@ function start() {
 function throwObstacles() {
   resetCanvas()
     // It maintains obstacle's distribution in the graph
-    let weights = [
+    
+    weights = [
         ["Obstacle", 30],
         ["Non Obstacle", 70]
     ]
