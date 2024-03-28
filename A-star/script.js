@@ -28,7 +28,7 @@ let choice = "1"
 heuristicChoose.onchange = function(event) {
     choice = event.target.selectedOptions[0].getAttribute("index");
     console.log(choice)
-    if(started == true) resetCanvas()
+    resetCanvas()
     }
 
 function resetCanvas() {
