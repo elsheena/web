@@ -364,6 +364,7 @@ function mouseDragged() {
                     // srcORdstClicked = true
                     // change prev source's color
                     source.show(255)
+                    if(source === destination) source.show(color(140, 68, 20))
                     source = graph[i][j]
                     // source.show(color(87, 50, 168))
                     graph[i][j].clicked();
@@ -371,6 +372,7 @@ function mouseDragged() {
                 if (destinationSelected) {
                     // change prev source's color
                     destination.show(255)
+                    if(source === destination) source.show(color(87, 50, 168))
                     destination = graph[i][j]
                     // source.show(color(87, 50, 168))
                     graph[i][j].clicked();
