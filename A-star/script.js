@@ -28,7 +28,7 @@ let choice = "1"
 heuristicChoose.onchange = function(event) {
     choice = event.target.selectedOptions[0].getAttribute("index");
     console.log(choice)
-    resetCanvas()
+    if(started == true) resetCanvas()
     }
 
 function resetCanvas() {
@@ -69,13 +69,13 @@ function resetCanvas() {
     // Initializing random source and destination if not chosen
     //if (source === undefined || destination === undefined) {
 
-        x = Math.floor(Math.random() * cols / 2)
-        y = Math.floor(Math.random() * rows)
+        x = Math.floor(Math.random() * (cols) / 2)
+        y = Math.floor(Math.random() * (rows))
 
         source = graph[x][y];
 
-        x = Math.floor(Math.random() * (cols - Math.floor((cols / 2 + 1)))) + Math.floor((cols / 2 + 1));
-        y = Math.floor(Math.random() * rows)
+        x = Math.floor(Math.random() * ((cols) - Math.floor(((cols) / 2 + 1)))) + Math.floor(((cols) / 2 + 1));
+        y = Math.floor(Math.random() * (rows))
 
         destination = graph[x][y];
     //}
@@ -155,12 +155,12 @@ function Node(i, j) {
         if (j > 0) this.neighbors.push(graph[i][j - 1]);
         if (j < rows - 1) this.neighbors.push(graph[i][j + 1]);
 
-        if (choice == 1) {// Diagonal Neighbors
-            if (i > 0 && j > 0) this.neighbors.push(graph[i - 1][j - 1]);
-            if (i < cols - 1 && j < rows - 1) this.neighbors.push(graph[i + 1][j + 1]);
-            if (i > 0 && j < rows - 1) this.neighbors.push(graph[i - 1][j + 1]);
-            if (i < cols - 1 && j > 0) this.neighbors.push(graph[i + 1][j - 1]);
-        }    
+        // if (choice == 1) {// Diagonal Neighbors
+        //     if (i > 0 && j > 0) this.neighbors.push(graph[i - 1][j - 1]);
+        //     if (i < cols - 1 && j < rows - 1) this.neighbors.push(graph[i + 1][j + 1]);
+        //     if (i > 0 && j < rows - 1) this.neighbors.push(graph[i - 1][j + 1]);
+        //     if (i < cols - 1 && j > 0) this.neighbors.push(graph[i + 1][j - 1]);
+        // }    
     }
 
     this.clicked = () => {
@@ -323,28 +323,59 @@ function start() {
     loop();
 }
 
-function throwObstacles() {
-  resetCanvas()
-    // It maintains obstacle's distribution in the graph
+// function throwObstacles() {
+//   resetCanvas()
+//     // It maintains obstacle's distribution in the graph
     
-    weights = [
-        ["Obstacle", 30],
-        ["Non Obstacle", 70]
-    ]
-    console.log(weights[1][1])
-    for (let i = 0; i < cols; i++) {
-        for (let j = 0; j < rows; j++) {
-            if (graph[i][j] != source && graph[i][j] != destination) {
-                // taking decision if we should make this node an obstacle or not
-                let decision = weightedRandom(weights)
-                if (decision === "Obstacle") {
-                    graph[i][j].obstacle = true
-                    graph[i][j].show()
-                }
-            }
+//     weights = [
+//         ["Obstacle", 30],
+//         ["Non Obstacle", 70]
+//     ]
+//     console.log(weights[1][1])
+//     for (let i = 0; i < cols; i++) {
+//         for (let j = 0; j < rows; j++) {
+//             if (graph[i][j] != source && graph[i][j] != destination) {
+//                 // taking decision if we should make this node an obstacle or not
+//                 let decision = weightedRandom(weights)
+//                 if (decision === "Obstacle") {
+//                     graph[i][j].obstacle = true
+//                     graph[i][j].show()
+//                 }
+//             }
+//         }
+//     }
+
+// }
+
+// Replacing throwObstacles function with maze generator algorithm
+
+function throwObstacles() {
+    resetCanvas()
+    for (let i = 1; i < cols; i += 2) {
+        for (let j = 1; j < rows; j += 2) {
+            if(!(graph[i][j] != source && graph[i][j] != destination 
+                && graph[i - 1][j] != source && graph[i][j-1] != destination 
+                && graph[i + 1][j] != source && graph[i][j + 1] != destination)) continue;
+            graph[i][j].obstacle = true;
+            graph[i][j].show(128, 128, 128);
+            let neighbors = [];
+            if (i > 1) neighbors.push(graph[i - 1][j]);
+            if (i < cols - 2) neighbors.push(graph[i + 1][j]);
+            if (j > 1) neighbors.push(graph[i][j - 1]);
+            if (j < rows - 2) neighbors.push(graph[i][j + 1]);
+
+            let randomNeighbor = neighbors[floor(random(neighbors.length))];
+            randomNeighbor.obstacle = true;
+            randomNeighbor.show(128, 128, 128);
         }
     }
+    source.obstacle = false;
+    destination.obstacle = false;
+    source.show(color(87, 50, 168));
+    destination.show(color(140, 68, 20));
 }
+
+
 
 function mouseDragged() {
     if(started){
@@ -364,7 +395,6 @@ function mouseDragged() {
                     // srcORdstClicked = true
                     // change prev source's color
                     source.show(255)
-                    if(source === destination) source.show(color(140, 68, 20))
                     source = graph[i][j]
                     // source.show(color(87, 50, 168))
                     graph[i][j].clicked();
@@ -372,7 +402,6 @@ function mouseDragged() {
                 if (destinationSelected) {
                     // change prev source's color
                     destination.show(255)
-                    if(source === destination) source.show(color(87, 50, 168))
                     destination = graph[i][j]
                     // source.show(color(87, 50, 168))
                     graph[i][j].clicked();
