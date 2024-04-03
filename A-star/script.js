@@ -81,7 +81,7 @@ function resetCanvas() {
     //}
     // otherwise Reinitializing old source & destination from graph's new objects
     // else {
-    //     graph.forEach(row => {
+    //     graph.forEach(row => { 
     //         row.forEach((node) => {
     //             if (node.i === source.i && node.j === source.j) {
     //                 source = node
@@ -354,15 +354,18 @@ function throwObstacles() {
     for (let i = 1; i < cols; i += 2) {
         for (let j = 1; j < rows; j += 2) {
             if(!(graph[i][j] != source && graph[i][j] != destination 
-                && graph[i - 1][j] != source && graph[i][j-1] != destination 
-                && graph[i + 1][j] != source && graph[i][j + 1] != destination)) continue;
+                && graph[i - 1][j] != source && graph[i - 1][j] != destination 
+                && graph[i + 1][j] != source && graph[i + 1][j] != destination
+                && graph[i][j - 1] != source && graph[i][j - 1] != destination 
+                && graph[i][j + 1] != source && graph[i][j + 1] != destination
+                )) continue;
             graph[i][j].obstacle = true;
             graph[i][j].show(128, 128, 128);
             let neighbors = [];
-            if (i > 1) neighbors.push(graph[i - 1][j]);
-            if (i < cols - 2) neighbors.push(graph[i + 1][j]);
-            if (j > 1) neighbors.push(graph[i][j - 1]);
-            if (j < rows - 2) neighbors.push(graph[i][j + 1]);
+            if (i > 1 && graph[i - 1][j] != source && graph[i - 1][j] != destination) neighbors.push(graph[i - 1][j]);
+            if (i < cols - 2 && graph[i + 1][j] != source && graph[i + 1][j] != destination) neighbors.push(graph[i + 1][j]);
+            if (j > 1 && graph[i][j - 1] != source && graph[i][j - 1] != destination) neighbors.push(graph[i][j - 1]);
+            if (j < rows - 2  && graph[i][j + 1] != source && graph[i][j + 1] != destination) neighbors.push(graph[i][j + 1]);
 
             let randomNeighbor = neighbors[floor(random(neighbors.length))];
             randomNeighbor.obstacle = true;
