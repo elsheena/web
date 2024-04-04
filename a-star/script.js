@@ -351,23 +351,28 @@ function start() {
 
 function throwObstacles() {
     resetCanvas()
-    for (let i = 1; i < cols; i += 2) {
-        for (let j = 1; j < rows; j += 2) {
-            if(!(graph[i][j] != source && graph[i][j] != destination 
-                && graph[i - 1][j] != source && graph[i - 1][j] != destination 
+    for (let i = 0; i < cols; i += 2) {
+        for (let j = 0; j < rows; j += 2) {
+            if(!(j != 0 && i != 0 && graph[i][j] != source && graph[i][j] != destination 
+                && graph[i - 1][j] != source && graph[i - 1][j] != destination && i != 0
                 && i < cols - 1 && graph[i + 1][j] != source && graph[i + 1][j] != destination
-                && graph[i][j - 1] != source && graph[i][j - 1] != destination 
+                && graph[i][j - 1] != source && graph[i][j - 1] != destination
                 && j < rows - 1 && graph[i][j + 1] != source && graph[i][j + 1] != destination
                 )) continue;
             graph[i][j].obstacle = true;
             graph[i][j].show(128, 128, 128);
             let neighbors = [];
-            if (i > 1 && graph[i - 2][j] != source && graph[i - 2][j] != destination) neighbors.push(graph[i - 1][j]);
-            if (i < cols - 2 && graph[i + 2][j] != source && graph[i + 2][j] != destination) neighbors.push(graph[i + 1][j]);
-            if (j > 1 && graph[i][j - 2] != source && graph[i][j - 2] != destination) neighbors.push(graph[i][j - 1]);
-            if (j < rows - 2  && graph[i][j + 2] != source && graph[i][j + 2] != destination) neighbors.push(graph[i][j + 1]);
+            if (i > 1 && graph[i - 2][j] != source && graph[i - 1][j] != destination) neighbors.push(graph[i - 1][j]);
+            if (i < cols - 2 && graph[i + 2][j] != source && graph[i + 1][j] != destination) neighbors.push(graph[i + 1][j]);
+            if (j > 1 && graph[i][j - 2] != source && graph[i][j - 1] != destination) neighbors.push(graph[i][j - 1]);
+            if (j < rows - 2  && graph[i][j + 2] != source && graph[i][j + 1] != destination) neighbors.push(graph[i][j + 1]);
 
             let randomNeighbor = neighbors[floor(random(neighbors.length))];
+            if(randomNeighbor.i + 1 == source.i || randomNeighbor.i - 1 == source.i 
+            || randomNeighbor.i + 1 == destination.i || randomNeighbor.i - 1 == destination.i 
+            || randomNeighbor.j + 1 == source.j || randomNeighbor.j - 1 == source.j 
+            || randomNeighbor.j + 1 == destination.j || randomNeighbor.j - 1 == destination.j) 
+            continue;
             randomNeighbor.obstacle = true;
             randomNeighbor.show(128, 128, 128);
         }
