@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clusterization</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <div class="ClustGround">
+        <header>
+            <div class="tasks">
+                <ul class="tasks_list">
+                    <li><a href="..\TASK2\index.html">Clusterization</a></li>
+                    <!-- Clusterization -->
+                    <li><a href="..\TASK3\index.html">Genetic</a></li>
+                    <!-- Genetic algorithm -->
+                    <li><a href="..\TASK4\index.html">Ant</a></li>
+                    <!-- Ant algorithm -->
+                    <li><a href="..\TASK5\index.html">Decision Tree</a></li>
+                    <!-- Decision Tree -->
+                </ul>
+            </div>
+        </header>
+
+
+        <style>
+            #wrapper {
+                display: inline-block;
+            }
+        </style>
+        <div class="wrapper" id="wrapper">
+            <div class="toolbar">
+                <input type="button" class="button" id="add_point" value="Add points">
+                <input type="button" class="button" id="remove_point" value="Delete points">
+                <input type="button" class="button" id="show_old_points" value="Undo Algorithm">
+                <input type="button" class="button" id="clear" value="Reset">
+                <br>
+                <input type="number" id="getClusters" min="1" max="27" step="1" value="3">
+                <input type="button" id="kMeans" value="Execute K-means">
+                <input type="button" class="button" id="DBSCAN" value="Execute DBSCAN">
+            </div>
+            <canvas id="canvas"></canvas>
+        </div>
+
+        <div class="flex-wrapper"></div>
+        <script type='module' src="./main.js"></script>
+    </div>
+</body>
+
+</html>
