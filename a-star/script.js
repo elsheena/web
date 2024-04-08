@@ -453,11 +453,18 @@ function throwObstacles() {
     let sourceY = source.j;
     let destX = destination.i;
     let destY = destination.j;
+    let currentX;
+    let currentY;
+    let randomchoice = Math.floor(Math.random() * 2)
 
-    // Generate a random maze starting from source and ending at destination
-    let currentX = sourceX;
-    let currentY = sourceY;
-
+    if (randomchoice == 0){
+        currentX = sourceX;
+        currentY = sourceY;
+    } else {
+        currentX = destX;
+        currentY = destY;
+    }
+    console.log(randomchoice)
     for (let i = 0; i < cols; i++) {
         for (let j = 0; j < rows; j++) {
             if (graph[i][j] != source && graph[i][j] != destination) {
@@ -468,9 +475,9 @@ function throwObstacles() {
         }
     }
 
-    while (currentX !== destX || currentY !== destY) {
+    while (((currentX !== destX || currentY !== destY) && randomchoice == 0) || ((currentX !== sourceX || currentY !== sourceY) && randomchoice == 1)) {
         let direction = Math.floor(Math.random() * 4); // 0: up, 1: right, 2: down, 3: left
-        
+    2
         // Move in the chosen direction (if possible)
         if (direction === 0 && currentY > 0) {
             graph[currentX][currentY - 1].obstacle = false;
@@ -640,50 +647,3 @@ function lowestFscoreNode() {
     return minNode;
 }
 
-function lowestDscoreNode() {
-    let minNode = openSet[0];
-    for (node of openSet) {
-        if (node.d < minNode.d) {
-            minNode = node;
-        }
-    }
-    return minNode;
-}
-
-function lowestHeuristicNode() {
-    let minNode = openSet[0];
-    for (node of openSet) {
-        if (node.h < minNode.h) {
-            minNode = node;
-        }
-    }
-    return minNode;
-}
-
-function weightedRandom(data) {
-    // First, we loop the main dataset to count up the total weight. We're starting the counter at one because the upper boundary of Math.random() is exclusive.
-    let total = 1;
-    for (let i = 0; i < data.length; ++i) {
-        total += data[i][1];
-    }
-
-    // Total in hand, we can now pick a random value akin to our
-    // random index from before.
-    const threshold = Math.floor(Math.random() * total);
-
-    // Now we just need to loop through the main data one more time
-    // until we discover which value would live within this
-    // particular threshold. We need to keep a running count of
-    // weights as we go, so let's just reuse the "total" variable
-    // since it was already declared.
-    total = 0;
-    for (let i = 0; i < data.length; ++i) {
-        // Add the weight to our running total.
-        total += data[i][1];
-
-        // If this value falls within the threshold, we're done!
-        if (total >= threshold) {
-            return data[i][0];
-        }
-    }
-}
