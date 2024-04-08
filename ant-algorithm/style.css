@@ -1,0 +1,195 @@
+canvas {
+    background-image: url('https://www.freeworldmaps.net/printable/worldmap-countries-hd.jpg');
+    background-size: 1000px 600px ;
+    margin-left: 23%;
+    
+}
+
+*{
+    margin: 0;
+    padding: 0px;
+    box-sizing: border-box; 
+    /* background-color: #393E46; */
+}
+
+.AntGround{
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background: #20382e;
+    color: #fff;
+    overflow: hidden;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+ }
+h2{
+    padding: 20px;
+    text-align: center;
+    font-weight: bold;
+    margin: 0;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+header{
+    display: flex;
+    flex-direction: row;
+    background: #0d2c1f;
+    box-shadow: 0 0 3px black;
+    font-family: 'Kanit', sans-serif;
+    padding: 5px 100px;
+}
+
+header .element {
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    margin: 0 10px;
+}
+
+header img{
+    width: 64px;
+    height: 64px;
+}
+
+header .end {
+    padding: 10px;
+    display: inherit;
+    margin-left: auto;
+}
+
+header .end img {
+    width: 48px;
+    height: 48px;
+}
+
+a{
+    position: relative;
+    text-decoration: none;
+    font-family: sans-serif;
+    color: #a0a0a0;
+    letter-spacing: 0.5px;
+    
+}
+
+a:after{
+    content: "";
+    position: absolute;
+    background-color: black;
+    height: 3px;
+    width: 0;
+    left: 0;
+    bottom: -10px;
+    transition: 0.3s;
+}
+
+a:hover{
+    color: black;
+}
+
+a:hover::after{
+    width: 100%;
+}
+
+ul{
+    list-style: none;
+}
+
+.tasks_list{
+    padding: 15px;
+    display:flex;
+    gap: 4rem;
+    font-size: 25px;
+    font-weight: 700;
+}
+.top-right-list {
+    position: absolute;
+    top: 15%;
+    right: 10%;
+    list-style: 90px;
+    padding: 0;
+    background-color: #5b8976;
+  }
+  
+  .top-right-list ul {
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 25px;
+    color: #111;
+  }
+  
+  .top-right-list li {
+    margin-bottom: 5px;
+   
+  }
+  
+  .control {
+    width: 60px;
+    font: 40px;
+    color: #111;
+  }
+  
+
+.btn{
+    position: relative;
+    height: 5%;
+    bottom:60%;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 130px;
+    padding: 25px 30px;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    color: #000000;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border: black;
+    cursor: pointer;
+    border-radius: 30px;
+    text-align: center;
+    background-color: #5b8976;
+}
+
+.button{
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    bottom: 9%;
+    
+}
+
+#distance-label{
+    color: #111;
+    font-size: 25px;
+}
+
+@media (max-width: 980px){
+    header img{
+        display: none;
+    }
+    header{
+        flex-direction: column;
+        padding: 0px;
+        display:block;
+    }
+    header .end {
+        display: none;
+    }
+
+    .top-right-list {
+        top: 19%;
+        right: 76%;
+        list-style: 90px;
+        padding: 0;
+       
+      }
+      .button{
+        left: 50%;
+        transform: translate(-50%);
+        bottom: 5.5%;
+        
+    }
+}
