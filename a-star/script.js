@@ -22,13 +22,15 @@ let sourceSelected
 let destinationSelected
 let heuristicChoose = document.getElementById('heuristicchoice');
 let choice = "1"
+let delay = 60
+var lastClick = 0;
 // sourceColor = color(87, 50, 168)
 // destColor = color(140, 68, 20)
 
 heuristicChoose.onchange = function(event) {
     choice = event.target.selectedOptions[0].getAttribute("index");
     console.log(choice)
-    if(started == true) resetCanvas()
+    if(started == true) changeAlgo()
     }
 
 function resetCanvas() {
@@ -91,6 +93,103 @@ function resetCanvas() {
     //             }
     //         })
     //     })
+    // }
+    //making sure source and destination aren't obstacls;
+    source.obstacle = false;
+    destination.obstacle = false;
+
+    background(255);
+    // revealing the canvas on screen
+    for (let i = 0; i < cols; i++) {
+        for (let j = 0; j < rows; j++) {
+            graph[i][j].show(255);
+        }
+    }
+    source.show(color(87, 50, 168));
+    destination.show(color(140, 68, 20));
+    noLoop();
+    console.log(openSet)
+}
+
+function changeAlgo() {
+    // Save the obstacle positions from the current graph
+    let obstaclePositions = [];
+    for (let i = 0; i < cols; i++) {
+        for (let j = 0; j < rows; j++) {
+            if (graph[i][j].obstacle) {
+                obstaclePositions.push([i, j]);
+            }
+        }
+    }
+
+    console.log(new Node(0, 0))
+    // Initializing variables
+    started = false
+    // resolution = 30
+    openSet = []
+    closedSet = []
+    shortestPath = []
+    sourceSelected = false
+    destinationSelected = false
+
+    rows = floor(height / size);
+    cols = floor(width / size);
+    w = width / cols;
+    h = height / rows;
+    graph = twoDArray(rows, cols);
+    startButton = document.getElementById("startButton")
+    startButton.disabled = false
+    startButton.innerHTML = "Visualize"
+    startButton.onclick = start;
+    let message = document.getElementById('message')
+    message.innerHTML = ""
+
+    // creating the graph 
+    for (let i = 0; i < cols; i++) {
+        for (let j = 0; j < rows; j++) {
+            graph[i][j] = new Node(i, j);
+        }
+    }
+    // determining neighbors of each vertices
+    for (let i = 0; i < cols; i++) {
+        for (let j = 0; j < rows; j++) {
+            graph[i][j].addNeighbor();
+        }
+    }
+
+    // Reapply the saved obstacle positions to the new graph
+    for (let pos of obstaclePositions) {
+        let i = pos[0];
+        let j = pos[1];
+        graph[i][j].obstacle = true;
+    }
+    
+    // Initializing random source and destination if not chosen
+    //if (source === undefined || destination === undefined) {
+
+        // x = Math.floor(Math.random() * (cols) / 2)
+        // y = Math.floor(Math.random() * (rows))
+
+        // source = graph[x][y];
+
+        // x = Math.floor(Math.random() * ((cols) - Math.floor(((cols) / 2 + 1)))) + Math.floor(((cols) / 2 + 1));
+        // y = Math.floor(Math.random() * (rows))
+
+        // destination = graph[x][y];
+    //}
+    // otherwise Reinitializing old source & destination from graph's new objects
+    // else {
+        graph.forEach(row => { 
+            row.forEach((node) => {
+                if (node.i === source.i && node.j === source.j) {
+                    source = node
+                }
+                if (node.i === destination.i && node.j === destination.j) {
+                    destination = node
+                }
+            })
+        })
+        
     // }
     //making sure source and destination aren't obstacls;
     source.obstacle = false;
@@ -207,7 +306,7 @@ function centerCanvas() {
 function setup() {
     message.innerHTML = `To move start and end points, drag them with the help of your mouse.`
     // making the canvas
-    screen = createCanvas(776, 776);
+    screen = createCanvas(700, 700);
     screen.parent("sketch01");
     centerCanvas();
     // startButton.parent("sketch01");
@@ -347,45 +446,56 @@ function start() {
 
 // }
 
-// Replacing throwObstacles function with maze generator algorithm
-
 function throwObstacles() {
     resetCanvas()
-    for (let i = 0; i < cols; i += 1) {
-        for (let j = 0; j < rows; j += 1) {
-            // if(!(graph[i][j] != source && graph[i][j] != destination 
-            //     && i != 0 && graph[i - 1][j] != source && graph[i - 1][j] != destination
-            //     && i < cols - 1 && graph[i + 1][j] != source && graph[i + 1][j] != destination
-            //     // && graph[i][j - 1] != source && graph[i][j - 1] != destination
-            //     // && graph[i][j + 1] != source && graph[i][j + 1] != destination
-            //     )) continue;
-            // graph[i][j].obstacle = true;
-            // graph[i][j].show(128, 128, 128);
-            let neighbors = [];
-            if (i > 1 && graph[i - 1][j] != source && graph[i - 1][j] != destination) neighbors.push(graph[i - 1][j]);
-            if (i < cols - 2 && graph[i + 1][j] != source && graph[i + 1][j] != destination) neighbors.push(graph[i + 1][j]);
-            if (j > 1 && graph[i][j - 1] != source && graph[i][j - 1] != destination) neighbors.push(graph[i][j - 1]);
-            if (j < rows - 1  && graph[i][j + 1] != source && graph[i][j + 1] != destination) neighbors.push(graph[i][j + 1]);
+    // Get the coordinates of source and destination
+    let sourceX = source.i;
+    let sourceY = source.j;
+    let destX = destination.i;
+    let destY = destination.j;
 
-            let randomNeighbor = neighbors[floor(random(neighbors.length))];
-            if(randomNeighbor.i == source.i || randomNeighbor.i == destination.i
-            || randomNeighbor.j == source.j || randomNeighbor.j == destination.j)
-            // || randomNeighbor.i + 1 == source.i || randomNeighbor.i - 1 == source.i 
-            // || randomNeighbor.i + 1 == destination.i || randomNeighbor.i - 1 == destination.i 
-            // || randomNeighbor.j + 1 == source.j || randomNeighbor.j - 1 == source.j 
-            // || randomNeighbor.j + 1 == destination.j || randomNeighbor.j - 1 == destination.j) 
-                continue;
-            randomNeighbor.obstacle = true;
-            randomNeighbor.show(128, 128, 128);
+    // Generate a random maze starting from source and ending at destination
+    let currentX = sourceX;
+    let currentY = sourceY;
+
+    for (let i = 0; i < cols; i++) {
+        for (let j = 0; j < rows; j++) {
+            if (graph[i][j] != source && graph[i][j] != destination) {
+                graph[i][j].obstacle = true
+                graph[i][j].show()
+            
+            }
         }
     }
-    source.obstacle = false;
-    destination.obstacle = false;
-    source.show(color(87, 50, 168));
-    destination.show(color(140, 68, 20));
+
+    while (currentX !== destX || currentY !== destY) {
+        let direction = Math.floor(Math.random() * 4); // 0: up, 1: right, 2: down, 3: left
+        
+        // Move in the chosen direction (if possible)
+        if (direction === 0 && currentY > 0) {
+            graph[currentX][currentY - 1].obstacle = false;
+            currentY--;
+        } else if (direction === 1 && currentX < cols - 1) {
+            graph[currentX + 1][currentY].obstacle = false;
+            currentX++;
+        } else if (direction === 2 && currentY < rows - 1) {
+            graph[currentX][currentY + 1].obstacle = false;
+            currentY++;
+        } else if (direction === 3 && currentX > 0) {
+            graph[currentX - 1][currentY].obstacle = false;
+            currentX--;
+        }
+    }
+
+    for (let i = 0; i < cols; i++) {
+        for (let j = 0; j < rows; j++) {
+            if (graph[i][j] != source && graph[i][j] != destination) {
+                graph[i][j].show(255)
+            
+            }
+        }
+    }
 }
-
-
 
 function mouseDragged() {
     if(started){
@@ -395,10 +505,11 @@ function mouseDragged() {
     for (let i = 0; i < cols; i++) {
         for (let j = 0; j < rows; j++) {
             //let d = dist(mouseX, mouseY, graph[i][j].x, graph[i][j].y);
-            if (mouseX >= graph[i][j].x && mouseX <= graph[i][j].x + graph[i][j].r && mouseY >= graph[i][j].y && mouseY <= graph[i][j].y + graph[i][j].r) {
+            if (mouseX >= graph[i][j].x && mouseX <= graph[i][j].x + graph[i][j].r && mouseY >= graph[i][j].y && mouseY <= graph[i][j].y + graph[i][j].r && lastClick < (Date.now() - delay)) {
                 console.log("in IF");
                 if (graph[i][j] != source && graph[i][j] != destination) {
                     graph[i][j].clicked();
+                    lastClick = Date.now();
                 }
                 if (sourceSelected) {
                     console.log("HERE")

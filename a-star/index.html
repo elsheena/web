@@ -22,7 +22,7 @@
   <title>A*</title>
 </head>
 
-<body style="font-family: 'Raleway', sans-serif;">
+<body style="font-family: 'Raleway', sans-serif;" style="height: 100vh;">
   <!-- <button id="somebutton" type="button" class="btn btn-success" onclick="start()">Start</button> -->
   <nav class="navbar navbar-expand-lg bg-dark border-bottom border-body" data-bs-theme="dark" aria-label="Thirteenth navbar example">
     <div class="container-fluid">
@@ -36,6 +36,9 @@
           <li class="nav-item">
             <a class="nav-link" style="color: aliceblue;" href="../index.html">Home</a>
           </li>
+          <!-- <li class="nav-item">
+            <a class="nav-link" style="color: aliceblue;" href="a-star/index.html">A*</a>
+          </li> -->
           <li class="nav-item">
             <a class="nav-link" style="color: aliceblue;" href="../clusterization/index.html">Clusterization</a>
           </li>
@@ -55,7 +58,7 @@
       </div>
     </div>
   </nav>
-  <div class="container-fluid w-100 m-0 p-0" style="height: 100vh;">
+  <div class="container-fluid w-100 m-0 p-0" >
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container">
           <!-- <h3><strong>A*</strong></h3> -->
@@ -68,15 +71,15 @@
             <li class="nav-item">
               <select onchange="dropdown(event)" class="btn btn-dark my-2 my-sm-0" id="selectGridSize" name="selectGridSize">
                 <!-- <option value="150">5x5</option> -->
-                <option value="75">10x10</option>
-                <option value="50">15x15</option>
-                <option value="37">20x20</option>
-                <option value="31" selected="selected">25x25</option>
-                <option value="26">30x30</option>
-                <option value="22">35x35</option>
-                <option value="19">40x40</option>
-                <option value="17">45x45</option>
-                <option value="15.5">50x50</option>
+                <!-- <option value="75">10x10</option> -->
+                <option value="46">15x15</option>
+                <option value="35">20x20</option>
+                <option value="28" selected="selected">25x25</option>
+                <option value="23">30x30</option>
+                <option value="20">35x35</option>
+                <option value="17.5">40x40</option>
+                <option value="15.555556">45x45</option>
+                <option value="14">50x50</option>
               </select>
             </li>
 
@@ -177,6 +180,7 @@
     <div id="sketch01" style="position: relative;">  </div>
 
 
+  <script type="text/javascript" src="mazeBuilder.js"></script>
   <script type="text/javascript" src="script.js"></script>
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
