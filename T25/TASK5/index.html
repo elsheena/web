@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DecisionTree</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <div class="TreeGround">
+        <header>
+            <div class="tasks">
+                <ul class="tasks_list">
+                    <li><a href="..\TASK2\index.html">Clusterization</a></li>
+                    <!-- Clusterization -->
+                    <li><a href="..\TASK3\index.html">Genetic</a></li>
+                    <!-- Genetic algorithm -->
+                    <li><a href="..\TASK4\index.html">Ant</a></li>
+                    <!-- Ant algorithm -->
+                    <li><a href="..\TASK5\index.html">Decision Tree</a></li>
+                    <!-- Decision Tree -->
+
+                </ul>
+            </div>
+
+        </header>
+        <div class="wrapper" id="wrapper">
+            <div class="toolbar">
+                <div style="display: inline-block; width: 300px;">
+                    <input class="button" type="button" id="getFile_button" value="Build Tree">
+                    <input class="button" type="button" id="start_button" value="Run Bypass">
+                    <input class="button" type="button" id="reset_button" value="Reset">
+                    <input id="file_input" type="file">
+                    <textarea id="input_data" name="input_data" cols="40" rows="18"></textarea>
+                </div>
+            </div>
+            <div class="canvas">
+                <div class="tree" id="tree">
+                    <ul id="root">
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="./ParserCSV.js"></script>
+    <script src="./DecisionTree.js"></script>
+    <script src="./Data_tree.js"></script>
+    <script src="./Interface.js"></script>
+</body>
+
+</html>
