@@ -3,45 +3,65 @@
 
 <head>
     <meta charset="utf-8">
-    <title>TSP Solver</title>
+    <title>Genetic Algorithm</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
 </head>
 
 <body>
-    <div class="header">
-        <header>
-            <div class="tasks">
-                <ul class="tasks_list">
+    <nav class="navbar navbar-expand-lg bg-dark border-bottom border-body" data-bs-theme="dark" aria-label="Thirteenth navbar example">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample11" aria-controls="navbarsExample11" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
 
-                    <li><a href="..\TASK2\index.html">Clusterization</a></li>
-                    <!-- Clusterization -->
-                    <li><a href="..\TASK3\index.html">Genetic</a></li>
-                    <!-- Genetic algorithm -->
-                    <li><a href="..\TASK4\index.html">Ant</a></li>
-                    <!-- Ant algorithm -->
-                    <li><a href="..\TASK5\index.html">Decision Tree</a></li>
-                    <!-- Decision Tree -->
-
+            <div class="collapse navbar-collapse d-lg-flex" id="navbarsExample11">
+                <a class="navbar-brand col-lg-3 me-0" style="color: aliceblue;" href="#">Ant Algorithn</a>
+                <ul class="navbar-nav col-lg-6 justify-content-lg-center">
+                    <li class="nav-item">
+                        <a class="nav-link" style="color: aliceblue;" href="../index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="color: aliceblue;" href="../a-star/index.html">A*</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="color: aliceblue;" href="../clusterization/index.html">Clusterization</a>
+                    </li>
+                    <!-- <li class="nav-item">
+                    <li class="nav-item">
+                        <a class="nav-link" style="color: aliceblue;" href="../genetic-algorithm/index.html">Genetic algorithm</a>
+                    </li>-->
+                    <a class="nav-link" style="color: aliceblue;" href="../ant-algorithm/index.html">Ant algorithm</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="color: aliceblue;" href="../decision-Tree/index.html">Decision Tree</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="color: aliceblue;" href="../nueral-network/index.html">Neural network</a>
+                    </li>
                 </ul>
             </div>
+        </div>
+    </nav>
 
-        </header>
-        <canvas id="canvas" width="1000" height="600"></canvas>
-        <div class="main">
-            <button id="start-button">Start-Search</button>
-            <button id="clear-button">Clear Cities</button>
+    </header>
+    <canvas id="canvas" width="1000" height="600"></canvas>
+    <div class="main">
+        <button id="start-button">Start-Search</button>
+        <button id="clear-button">Clear Cities</button>
+    </div>
+    <div class="settings-bar">
+        <div class="main 2">
+            <label for="population-size">Population Size:</label>
+            <input type="number" id="population-size" value="100">
+            <label for="mutation-rate">Mutation Rate:</label>
+            <input type="number" id="mutation-rate" value="0.02" step="0.01">
+            <label for="iteration-limit">Iteration Limit:</label>
+            <input type="number" id="iteration-limit" value="1000">
+            <!-- <label id="distance-label">Distance:  in KM</label> -->
         </div>
-        <div class="settings-bar">
-            <div class="main 2">
-                <label for="population-size">Population Size:</label>
-                <input type="number" id="population-size" value="100">
-                <label for="mutation-rate">Mutation Rate:</label>
-                <input type="number" id="mutation-rate" value="0.02" step="0.01">
-                <label for="iteration-limit">Iteration Limit:</label>
-                <input type="number" id="iteration-limit" value="1000">
-                <!-- <label id="distance-label">Distance:  in KM</label> -->
-            </div>
-        </div>
+    </div>
     </div>
 
     <script src="genetic.js"></script>
