@@ -4,7 +4,6 @@ let weights
 let e
 let size = 31
 let algo = "A* Search"
-let message = document.getElementById('message')
 let startButton
 let screen
 let graph
@@ -53,8 +52,6 @@ function resetCanvas() {
     startButton.disabled = false
     startButton.innerHTML = "Visualize"
     startButton.onclick = start;
-    let message = document.getElementById('message')
-    message.innerHTML = ""
 
     // creating the graph 
     for (let i = 0; i < cols; i++) {
@@ -141,8 +138,6 @@ function changeAlgo() {
     startButton.disabled = false
     startButton.innerHTML = "Visualize"
     startButton.onclick = start;
-    let message = document.getElementById('message')
-    message.innerHTML = ""
 
     // creating the graph 
     for (let i = 0; i < cols; i++) {
@@ -304,9 +299,8 @@ function centerCanvas() {
 }
 
 function setup() {
-    message.innerHTML = `To move start and end points, drag them with the help of your mouse.`
     // making the canvas
-    screen = createCanvas(700, 700);
+    screen = createCanvas(766, 766);
     screen.parent("sketch01");
     centerCanvas();
     // startButton.parent("sketch01");
@@ -407,7 +401,6 @@ function dropdown(event) {
     algo = "A* Search"
     let startButton = document.getElementById('startButton')
     startButton.innerHTML = `Start ${algo}`
-    message.innerHTML = `Insight: A* Search <span style = "font-weight: bold;">Gurantees</span> Shortest Path`
     size = event.target.selectedOptions[0].getAttribute("value")
     setup()
     centerCanvas();
@@ -448,6 +441,29 @@ function start() {
 
 function throwObstacles() {
     resetCanvas()
+    for (let i = 0; i < cols; i += 2) {
+        for (let j = 0; j < rows; j += 2) {
+            graph[i][j].obstacle = true;
+            graph[i][j].show(128, 128, 128);
+            let neighbors = [];
+            if (i > 1) neighbors.push(graph[i - 1][j]);
+            if (i < cols - 1) neighbors.push(graph[i + 1][j]);
+            if (j > 1) neighbors.push(graph[i][j - 1]);
+            if (j < rows - 1) neighbors.push(graph[i][j + 1]);
+
+            let randomNeighbor = neighbors[floor(random(neighbors.length))];
+            randomNeighbor.obstacle = true;
+            randomNeighbor.show(128, 128, 128);
+        }
+    }
+    source.obstacle = false;
+    destination.obstacle = false;
+    source.show(color(87, 50, 168));
+    destination.show(color(140, 68, 20));
+    removeWalls()
+}
+
+function removeWalls() {
     // Get the coordinates of source and destination
     let sourceX = source.i;
     let sourceY = source.j;
@@ -455,40 +471,24 @@ function throwObstacles() {
     let destY = destination.j;
     let currentX;
     let currentY;
-    let randomchoice = Math.floor(Math.random() * 2)
 
-    if (randomchoice == 0){
-        currentX = sourceX;
-        currentY = sourceY;
-    } else {
-        currentX = destX;
-        currentY = destY;
-    }
-    console.log(randomchoice)
-    for (let i = 0; i < cols; i++) {
-        for (let j = 0; j < rows; j++) {
-            if (graph[i][j] != source && graph[i][j] != destination) {
-                graph[i][j].obstacle = true
-                graph[i][j].show()
-            
-            }
-        }
-    }
+    currentX = sourceX;
+    currentY = sourceY;
 
-    while (((currentX !== destX || currentY !== destY) && randomchoice == 0) || ((currentX !== sourceX || currentY !== sourceY) && randomchoice == 1)) {
+    while (currentX !== destX || currentY !== destY) {
         let direction = Math.floor(Math.random() * 4); // 0: up, 1: right, 2: down, 3: left
     2
         // Move in the chosen direction (if possible)
-        if (direction === 0 && currentY > 0) {
+        if (direction === 0 && currentY > 0 && currentY > destY) {
             graph[currentX][currentY - 1].obstacle = false;
             currentY--;
-        } else if (direction === 1 && currentX < cols - 1) {
+        } else if (direction === 1 && currentX < cols - 1 && currentX < destX) {
             graph[currentX + 1][currentY].obstacle = false;
             currentX++;
-        } else if (direction === 2 && currentY < rows - 1) {
+        } else if (direction === 2 && currentY < rows - 1 && currentY < destY) {
             graph[currentX][currentY + 1].obstacle = false;
             currentY++;
-        } else if (direction === 3 && currentX > 0) {
+        } else if (direction === 3 && currentX > 0 && currentX > destX) {
             graph[currentX - 1][currentY].obstacle = false;
             currentX--;
         }
