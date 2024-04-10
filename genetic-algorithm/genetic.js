@@ -36,7 +36,7 @@ function fitness(solution) {
 // Define the mutation operator for a TSP solution
 function mutate(solution) {
   for (let i = 0; i < solution.length; i++) {
-    if (Math.random() < mutationRate) {
+    while (Math.random() < mutationRate) {
       const j = Math.floor(Math.random() * solution.length);
       [solution[i], solution[j]] = [solution[j], solution[i]];
     }
