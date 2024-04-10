@@ -477,7 +477,6 @@ function removeWalls() {
 
     while (currentX !== destX || currentY !== destY) {
         let direction = Math.floor(Math.random() * 4); // 0: up, 1: right, 2: down, 3: left
-    2
         // Move in the chosen direction (if possible)
         if (direction === 0 && currentY > 0 && currentY > destY) {
             graph[currentX][currentY - 1].obstacle = false;
@@ -512,11 +511,11 @@ function mouseDragged() {
     for (let i = 0; i < cols; i++) {
         for (let j = 0; j < rows; j++) {
             //let d = dist(mouseX, mouseY, graph[i][j].x, graph[i][j].y);
-            if (mouseX >= graph[i][j].x && mouseX <= graph[i][j].x + graph[i][j].r && mouseY >= graph[i][j].y && mouseY <= graph[i][j].y + graph[i][j].r && lastClick < (Date.now() - delay)) {
+            if (mouseX >= graph[i][j].x && mouseX <= graph[i][j].x + graph[i][j].r && mouseY >= graph[i][j].y && mouseY <= graph[i][j].y + graph[i][j].r && lastClick != graph[i][j]) {
                 console.log("in IF");
                 if (graph[i][j] != source && graph[i][j] != destination) {
                     graph[i][j].clicked();
-                    lastClick = Date.now();
+                    lastClick = graph[i][j];
                 }
                 if (sourceSelected) {
                     console.log("HERE")
