@@ -2,8 +2,8 @@ let neuralNetwork = new NeuralNetwork(input_x_hidden_weights, hidden_x_output_we
 let outputChart  = new OutputChart();
 
 let drawingCanvas =  document.getElementById('input-canvas');
-drawingCanvas.width= 84;
-drawingCanvas.height= 84;
+drawingCanvas.width= 100;
+drawingCanvas.height= 100;
 let drawingContext = drawingCanvas.getContext('2d');
 
 let feedCanvas = document.getElementById('feed-image');
