@@ -29,7 +29,7 @@ function handler(x, y) {
     if (activeMode.value === 1 && isCanAddVertex(x, y)) {
         // Check if the vertex limit is reached
         if (vertexList.length + 1 > LIMIT_NUMBER_VERTEX) {
-            alert("The limit (50) on the number of cities has been exceeded");
+            alert("The limit (45) on the number of cities has been exceeded");
         } else {
             addVertex(x, y);
         }
