@@ -1,7 +1,7 @@
 // Get canvas element and context
 let canvas = document.getElementById('canvas');
 canvas.width = 1000;
-canvas.height = 600;
+canvas.height = 800;
 let context = canvas.getContext('2d');
 
 // Set up variables for the algorithm
