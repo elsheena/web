@@ -1,0 +1,98 @@
+* {
+    margin: 0;
+    font-family: 'Montserrat';
+    text-align: center;
+}
+
+body {
+    background-image: url("https://www.pharmaceutical-technology.com/wp-content/uploads/sites/24/2021/06/shutterstock_1669326868.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.content {
+    margin-top: 5px;
+}
+
+.flex-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+header>div p {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: max-content;
+}
+
+a,
+a:visited,
+a:hover {
+    text-decoration: none;
+    color: #ffff;
+}
+
+header>.flex-wrapper>.reference>.active>a {
+    color: black;
+}
+
+.grid-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.logo {
+    width: 78px;
+    margin-top: 4px;
+}
+
+#left_logo {
+    margin-left: 28px;
+}
+
+#right_logo {
+    margin-right: 28px;
+}
+
+#canvas {
+    background-color: rgb(212, 220, 233);
+    display: block;
+    /* margin-top: 20px; */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.wrapper {
+    /* margin-top: 1%; */
+    display: grid;
+    grid-template-columns: 2fr 5fr;
+}
+
+.toolbar {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin: 50px;
+}
+
+.button {
+    appearance: none;
+    color: white;
+    border: 0;
+    border-radius: 10px;
+    background: #247ABF;
+    font-size: 16px;
+    font-weight: lighter;
+    margin: 7px auto 5px auto;
+    text-align: center;
+    display: block;
+    width: 300px;
+    height: 50px;
+}
+
+input:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #cbd6ee;
+}
