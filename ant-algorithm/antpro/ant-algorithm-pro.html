@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ant Algorithm Pro+</title>
+    <link rel="stylesheet" type="text/css" href="ant-algorithm-pro.css">
+</head>
+
+<!-- Add Drive -->
+<audio id="myAudioId" src="../assets/audio/astronomia.mp3"></audio>
+<div id="wave1"></div>
+<div id="wave2"></div>
+<div id="wave3"></div>
+
+<body>
+    <header>
+        <div id="headerButtonsContainer">
+            <button id="lobbyButton" onclick="window.location.href = '../index.html'">Go Back</button>
+            <button id="driveId">Nothing Button</button>
+            <button id="showGraphicsModalWindow">Graphics</button>
+            <button id="showSettingsModalWindow">Settings</button>
+        </div>
+    </header>
+
+    <div id="buttonsContainer">
+        <button id="food">
+            Food
+        </button>
+        <button id="walls">
+            Walls
+        </button>
+        <button id="ants">
+            Colony
+        </button>
+        <button id="erase">
+            Erase
+        </button>
+        <button id="clear">
+            Clear
+        </button>
+    </div>
+
+    <div id="brushWidthDiv">
+        <label for="brushWidth"></label><input type="range" min="5" max="50" value="20" id="brushWidth">
+    </div>
+
+    <canvas width="800px" height="600px" id="myCanvas">Update your browser!</canvas>
+    <canvas width="800px" height="600px" id="extraCanvas1"></canvas>
+    <canvas width="800px" height="600px" id="extraCanvas2"></canvas>
+
+    <div id="shadowSettings" class="shadow">
+        <div id="settingsModalWindow" class="modalWindow">
+
+            <div id="closeSettingsModalWindow" class="divForCloseButton">
+                <button class="close">Close</button>
+            </div>
+
+            <div class="extraDivForModalWindows">
+                <label for="colonyInputId">Number of Ants</label>
+                <input type="range" id="colonyInputId" min="10" max="700" value="300" step="10" oninput="colonyOutputId.value = colonyInputId.value" />
+                <output id="colonyOutputId">200</output>
+            </div>
+
+            <div class="extraDivForModalWindows">
+                <label for="antsEyesRadiusInputId">Eyes Radius</label>
+                <input type="range" id="antsEyesRadiusInputId" min="5" max="100" value="10" step="5" oninput="antsEyesRadiusOutputId.value = antsEyesRadiusInputId.value" />
+                <output id="antsEyesRadiusOutputId">10</output>
+            </div>
+
+            <div class="extraDivForModalWindows">
+                <label for="mapPheromoneScaleInputId">Pheromone Scale</label>
+                <input type="range" id="mapPheromoneScaleInputId" min="10" max="20" value="10" step="10" oninput="mapPheromoneScaleOutputId.value = mapPheromoneScaleInputId.value" />
+                <output id="mapPheromoneScaleOutputId">10</output>
+            </div>
+
+            <div class="extraDivForModalWindows">
+                <label for="mapPixelScaleInputId">Food and Walls Scale</label>
+                <input type="range" id="mapPixelScaleInputId" min="10" max="20" value="10" step="10" oninput="mapPixelScaleOutputId.value = mapPixelScaleInputId.value" />
+                <output id="mapPixelScaleOutputId">10</output>
+            </div>
+
+            <div class="divForSaveButton">
+                <button class="save" id="saveSettings">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="shadowGraphics" class="shadow">
+        <div id="graphicsModalWindow" class="modalWindow">
+            <div id="closeGraphicsModalWindow" class="divForCloseButton">
+                <button class="close">Close</button>
+            </div>
+
+            <div class="extraDivForModalWindows">
+                <label for="anthillColorId">Anthill Color</label>
+                <input type="color" value="#ff4411" id="anthillColorId">
+            </div>
+
+            <div class="extraDivForModalWindows">
+                <label for="antsColorId">Ants Color</label>
+                <input type="color" value="#ff0000" id="antsColorId">
+            </div>
+
+            <div class="extraDivForModalWindows">
+                <label for="antsRadiusInputId">Ants Width</label>
+                <input type="range" id="antsRadiusInputId" min="1" max="20" value="4" step="1" oninput="antsRadiusOutputId.value = antsRadiusInputId.value" />
+                <output id="antsRadiusOutputId">4</output>
+            </div>
+
+            <div class="extraDivForModalWindows">
+                <label for="pheromonesDrawingModeInputId">Pheromones Drawing Mode</label>
+                <input type="range" id="pheromonesDrawingModeInputId" min="0" max="2" value="0" step="1" oninput="pheromonesDrawingModeOutputId.value = pheromonesDrawingModeInputId.value" />
+                <output id="pheromonesDrawingModeOutputId">0</output>
+            </div>
+
+            <div class="extraDivForModalWindows">
+                <label for="howOftenToUpdateColorInputId">Color Update Frequency</label>
+                <input type="range" id="howOftenToUpdateColorInputId" min="5" max="200" value="50" step="5" oninput="howOftenToUpdateColorOutputId.value = howOftenToUpdateColorInputId.value" />
+                <output id="howOftenToUpdateColorOutputId">50</output>
+            </div>
+
+            <div class="divForSaveButton">
+                <button class="save" id="saveGraphics">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="main.js"></script>
+</body>
+
+</html>
